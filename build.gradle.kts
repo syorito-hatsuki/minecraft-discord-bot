@@ -7,7 +7,6 @@ val appTitle = "Minecraft Discord Bot"
 val app = "mdb"
 val domain = "dev.syoritohatsuki"
 val pkg = "$domain.$app"
-val dateCode: String = SimpleDateFormat("yyyy.M").format(Date())
 
 plugins {
     kotlin("jvm") version "1.7.0"
@@ -16,14 +15,23 @@ plugins {
 }
 
 group = pkg
-version = "$dateCode.1"
+version = SimpleDateFormat("yyyy.M.d").format(Date())
 
 repositories {
+    maven {
+        name = "OSS"
+        setUrl("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
     mavenCentral()
 }
 
 dependencies {
-    implementation("com.jessecorbett:diskord-bot:2.1.4")
+    implementation("com.jessecorbett:diskord-bot:3.0.0-SNAPSHOT")
+
+    implementation("io.ktor:ktor-server-core:2.0.3")
+    implementation("io.ktor:ktor-server-cio:2.0.3")
+
+    implementation("io.github.cdimascio:java-dotenv:5.2.2")
 }
 
 val createBuildClassFile = task("createBuildClassFile") {
